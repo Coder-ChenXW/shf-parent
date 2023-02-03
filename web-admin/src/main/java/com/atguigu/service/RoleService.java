@@ -8,4 +8,12 @@ public interface RoleService {
 
     List<Role> findAll();
 
+
+    Integer insert(Role role);
+
+    void delete(Long roleId);
+
+    Role getById(Long roleId);
+
+    Integer update(Role role);
 }
