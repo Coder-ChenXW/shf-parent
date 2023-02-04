@@ -9,6 +9,8 @@
         <module name="common-util" />
         <module name="model" />
         <module name="web-admin" />
+        <module name="service-api" />
+        <module name="service-acl" />
       </profile>
     </annotationProcessing>
   </component>
