@@ -43,7 +43,7 @@
     </select>
 
     <!--    更新-->
-    <update id="update" >
+    <update id="update">
         update acl_role set
         <if test="roleName != null and roleName != ''">
             role_name = #{roleName} ,
@@ -54,9 +54,22 @@
         <if test="description != null and description != ''">
             description = #{description} ,
         </if>
-        update_time =  now()
+        update_time = now()
         where
         id = #{id}
     </update>
+
+    <!--    分页及带条件查询-->
+    <select id="findPage" resultType="Role">
+        <include refid="columns" />
+        from acl_role
+        <where>
+            <if test="roleName != null and roleName != ''">
+                role_name like "%"#{roleName}"%" and
+            </if>
+            is_deleted = 0
+        </where>
+        order by id desc
+    </select>
 
 </mapper>

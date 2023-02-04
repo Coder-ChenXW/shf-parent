@@ -3,18 +3,22 @@ package com.atguigu.controller;
 
 import com.atguigu.entity.Role;
 import com.atguigu.service.RoleService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/role")
-public class RoleController {
+public class RoleController extends BaseController {
 
     public static final String SUCCESS_PAGE = "common/successPage";
     private final static String LIST_ACTION = "redirect:/role";
@@ -22,13 +26,30 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+//    @RequestMapping
+//    public String index(Map map) {
+//        // 调用RoleService中获取所有角色的方法
+//        List<Role> roleList = roleService.findAll();
+//
+//        map.put("list", roleList);
+//
+//        return "role/index";
+//    }
+
+    /**
+     * @description: 分页及查询
+     * @author: ChenXW
+     * @date: 2023/2/4 10:46
+     */
     @RequestMapping
-    public String index(Map map) {
-        // 调用RoleService中获取所有角色的方法
-        List<Role> roleList = roleService.findAll();
+    public String index(Map map, HttpServletRequest request){
+        // 获取请求参数
+        Map<String, Object> filters = getFilters(request);
+        map.put("filters",filters);
+        // 调用RoleService 中分页及查询方法
+        PageInfo<Role> pageInfo = roleService.findPage(filters);
 
-        map.put("list", roleList);
-
+        map.put("page",pageInfo);
         return "role/index";
     }
 
@@ -88,5 +109,8 @@ public class RoleController {
 
         return SUCCESS_PAGE;
     }
+
+
+
 
 }
