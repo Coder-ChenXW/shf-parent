@@ -143,8 +143,15 @@
     <!--    删除-->
     <update id="delete">
         update hse_community
-        set is_deleted  = 1
+        set is_deleted = 1
         where id = #{id}
     </update>
+
+    <!--    查询所有小区-->
+    <select id="findAll" resultType="community">
+        <include refid="columns"></include>
+        from hse_community
+        where is_deleted = 0
+    </select>
 
 </mapper>

@@ -29,7 +29,151 @@
                create_time,
                update_time,
                is_deleted
+        from hse_house
     </sql>
+
+    <!--    分页及带条件查询的方法-->
+    <select id="findPage" resultType="house">
+        <include refid="columns"></include>
+        <where>
+            <if test="communityId != null and communityId != ''">
+                and community_id = #{communityId}
+            </if>
+            <if test="name != null and name != ''">
+                and name like CONCAT('%',#{name},'%')
+            </if>
+            <if test="houseTypeId != null and houseTypeId != ''">
+                and house_type_id = #{houseTypeId}
+            </if>
+            <if test="floorId != null and floorId != ''">
+                and floor_id = #{floorId}
+            </if>
+            <if test="buildStructureId != null and buildStructureId != ''">
+                and build_structure_id = #{buildStructureId}
+            </if>
+            <if test="directionId != null and directionId != ''">
+                and direction_id = #{directionId}
+            </if>
+            <if test="decorationId != null and decorationId != ''">
+                and decoration_id = #{decorationId}
+            </if>
+            <if test="houseUseId != null and houseUseId != ''">
+                and house_use_id = #{houseUseId}
+            </if>
+            and is_deleted = 0
+        </where>
+        order by id desc
+    </select>
+
+    <!--    添加-->
+    <insert id="insert">
+        insert into hse_house (community_id,
+                               name,
+                               description,
+                               total_price,
+                               unit_price,
+                               build_area,
+                               inside_area,
+                               house_type_id,
+                               floor_id,
+                               build_structure_id,
+                               direction_id,
+                               decoration_id,
+                               house_use_id,
+                               elevator_ratio,
+                               listing_date,
+                               last_trade_date)
+        values (#{communityId},
+                #{name},
+                #{description},
+                #{totalPrice},
+                #{unitPrice},
+                #{buildArea},
+                #{insideArea},
+                #{houseTypeId},
+                #{floorId},
+                #{buildStructureId},
+                #{directionId},
+                #{decorationId},
+                #{houseUseId},
+                #{elevatorRatio},
+                #{listingDate},
+                #{lastTradeDate})
+    </insert>
+
+
+    <!--    根据id查询-->
+    <select id="getById" resultType="house">
+        <include refid="columns"></include>
+        where id = #{id}
+    </select>
+
+    <!--    更新-->
+    <update id="update">
+        update hse_house
+        <set>
+            <if test="communityId != null">
+                community_id = #{communityId} ,
+            </if>
+            <if test="name != null">
+                name = #{name} ,
+            </if>
+            <if test="description != null">
+                description = #{description} ,
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice} ,
+            </if>
+            <if test="unitPrice != null">
+                unit_price = #{unitPrice} ,
+            </if>
+            <if test="buildArea != null">
+                build_area = #{buildArea} ,
+            </if>
+            <if test="insideArea != null">
+                inside_area = #{insideArea} ,
+            </if>
+            <if test="houseTypeId != null">
+                house_type_id = #{houseTypeId} ,
+            </if>
+            <if test="floorId != null">
+                floor_id = #{floorId} ,
+            </if>
+            <if test="buildStructureId != null">
+                build_structure_id = #{buildStructureId} ,
+            </if>
+            <if test="directionId != null">
+                direction_id = #{directionId} ,
+            </if>
+            <if test="decorationId != null">
+                decoration_id = #{decorationId} ,
+            </if>
+            <if test="houseUseId != null">
+                house_use_id = #{houseUseId} ,
+            </if>
+            <if test="elevatorRatio != null">
+                elevator_ratio = #{elevatorRatio} ,
+            </if>
+            <if test="listingDate != null">
+                listing_date = #{listingDate} ,
+            </if>
+            <if test="lastTradeDate != null">
+                last_trade_date = #{lastTradeDate} ,
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        where
+        id = #{id}
+    </update>
+
+    <!--    删除-->
+    <update id="delete">
+        update hse_house
+        set is_deleted = 1
+        where id = #{id}
+    </update>
 
 
 </mapper>
