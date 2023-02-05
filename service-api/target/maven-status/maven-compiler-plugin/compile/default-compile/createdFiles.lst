@@ -1,2 +1,5 @@
-com\atguigu\RoleService.class
 com\atguigu\AdminService.class
+com\atguigu\RoleService.class
+com\atguigu\CommunityService.class
+com\atguigu\DictService.class
+com\atguigu\HouseService.class

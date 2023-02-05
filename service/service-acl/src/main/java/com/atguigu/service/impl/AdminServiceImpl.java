@@ -5,7 +5,6 @@ import com.atguigu.AdminService;
 import com.atguigu.dao.AdminDao;
 import com.atguigu.dao.BaseDao;
 import com.atguigu.entity.Admin;
-import com.atguigu.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

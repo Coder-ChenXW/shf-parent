@@ -6,7 +6,6 @@ import com.atguigu.RoleService;
 import com.atguigu.dao.BaseDao;
 import com.atguigu.dao.RoleDao;
 import com.atguigu.entity.Role;
-import com.atguigu.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
