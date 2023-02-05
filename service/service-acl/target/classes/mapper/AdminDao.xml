@@ -94,7 +94,15 @@
             </if>
         </set>
         where
-            id = #{id}
+        id = #{id}
     </update>
+
+
+    <!--    查询所有用户-->
+    <select id="findAll" resultType="admin">
+        <include refid="columns"></include>
+        from acl_admin
+        where is_deleted = 0
+    </select>
 
 </mapper>
