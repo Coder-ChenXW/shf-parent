@@ -1,10 +1,9 @@
 package com.atguigu.vo;
 
-
 import java.io.Serializable;
 
 public class HouseQueryVo implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	//区域id：（字典id）
