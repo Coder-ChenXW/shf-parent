@@ -41,4 +41,36 @@
     </insert>
 
 
+    <!--    根据id查询经纪人-->
+    <select id="getById" resultType="houseBroker">
+        <include refid="columns"></include>
+        where id = #{id}
+    </select>
+
+    <!--    更新经纪人-->
+    <update id="update">
+        update hse_house_broker
+        <set>
+            <if test="houseId != null and houseId != ''">
+                house_id = #{houseId} ,
+            </if>
+            <if test="brokerId != null and brokerId != ''">
+                broker_id = #{brokerId} ,
+            </if>
+            <if test="brokerName != null and brokerName != ''">
+                broker_name = #{brokerName} ,
+            </if>
+            <if test="brokerHeadUrl != null and brokerHeadUrl != ''">
+                broker_head_url = #{brokerHeadUrl} ,
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!--    删除-->
+    <update id="delete">
+        update hse_house_broker set is_deleted = 1 where id = #{id}
+    </update>
+
 </mapper>

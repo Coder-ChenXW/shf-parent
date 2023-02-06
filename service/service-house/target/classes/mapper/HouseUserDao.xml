@@ -32,7 +32,7 @@
         insert into hse_house_user(house_id,
                                    name,
                                    phone,
-                                   sex,
+                                   se x,
                                    id_no)
         values (#{houseId},
                 #{name},
