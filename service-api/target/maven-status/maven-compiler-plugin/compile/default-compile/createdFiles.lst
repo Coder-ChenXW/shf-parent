@@ -5,4 +5,5 @@ com\atguigu\HouseService.class
 com\atguigu\AdminService.class
 com\atguigu\HouseBrokerService.class
 com\atguigu\HouseUserService.class
+com\atguigu\UserInfoService.class
 com\atguigu\HouseImageService.class

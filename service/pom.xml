@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>service-house</module>
+        <module>service-user</module>
     </modules>
 
     <dependencies>
