@@ -2,6 +2,7 @@ com\atguigu\RoleService.class
 com\atguigu\CommunityService.class
 com\atguigu\DictService.class
 com\atguigu\HouseService.class
+com\atguigu\UserFollowService.class
 com\atguigu\AdminService.class
 com\atguigu\HouseBrokerService.class
 com\atguigu\HouseUserService.class

@@ -16,4 +16,6 @@ public interface DictService {
     // 根据编码获取该节点下所有的节点
     List<Dict> findListByDictCode(String dictCode);
 
+    String getNameById(Long id);
+
 }
