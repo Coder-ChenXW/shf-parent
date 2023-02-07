@@ -2,6 +2,7 @@ package com.atguigu.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.atguigu.PermissionService;
 import com.atguigu.RoleService;
 import com.atguigu.entity.Role;
 import com.github.pagehelper.PageInfo;
@@ -9,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,6 +25,9 @@ public class RoleController extends BaseController {
 
     @Reference
     private RoleService roleService;
+
+    @Reference
+    private PermissionService permissionService;
 
 //    @RequestMapping
 //    public String index(Map map) {
@@ -39,14 +45,14 @@ public class RoleController extends BaseController {
      * @date: 2023/2/4 10:46
      */
     @RequestMapping
-    public String index(Map map, HttpServletRequest request){
+    public String index(Map map, HttpServletRequest request) {
         // 获取请求参数
         Map<String, Object> filters = getFilters(request);
-        map.put("filters",filters);
+        map.put("filters", filters);
         // 调用RoleService 中分页及查询方法
         PageInfo<Role> pageInfo = roleService.findPage(filters);
 
-        map.put("page",pageInfo);
+        map.put("page", pageInfo);
         return "role/index";
     }
 
@@ -107,7 +113,36 @@ public class RoleController extends BaseController {
         return SUCCESS_PAGE;
     }
 
+    /**
+     * @description: 去分配权限的页面
+     * @author: ChenXW
+     * @date: 2023/2/7 17:56
+     */
+    @RequestMapping("/assginShow/{roleId}")
+    public String goAssignShowPage(@PathVariable("roleId") Long roleId, Map map) {
+        map.put("roleId", roleId);
+        // 根据角色id获取权限
+        List<Map<String, Object>> zNodes = permissionService.findPermissionByRoleId(roleId);
+        // 将权限放到requests域中
+        map.put("zNodes", zNodes);
 
+        return "role/assginShow";
+
+    }
+
+
+    /**
+     * @description: 分配权限
+     * @author: ChenXW
+     * @date: 2023/2/7 18:40
+     */
+    @RequestMapping("/assignPermission")
+    public String assignPermission(@RequestParam("roleId") Long roleId,@RequestParam("permissionIds") Long[] permissionIds) {
+        // 分配权限的方法
+        permissionService.assignPermission(roleId,permissionIds);
+        return "common/successPage";
+
+    }
 
 
 }

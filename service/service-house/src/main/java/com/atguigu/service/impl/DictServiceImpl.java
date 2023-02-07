@@ -61,6 +61,10 @@ public class DictServiceImpl implements DictService {
         return listByParentId;
     }
 
+    @Override
+    public String getNameById(Long id) {
+        return dictDao.getNameById(id);
+    }
 
 
 }

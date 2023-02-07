@@ -14,10 +14,19 @@
     <import resource="spring-registry.xml"/>
 
     <!--包扫描-->
-    <context:component-scan base-package="com.atguigu" />
+    <context:component-scan base-package="com.atguigu"/>
 
     <!-- 没有匹配上的url全部按默认方式（就是直接访问）访问，避免拦截静态资源 -->
     <mvc:default-servlet-handler/>
+
+    <!--    配置监听器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/auth/**"/>
+            <bean class="com.atguigu.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 开启mvc注解-->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">

@@ -2,11 +2,13 @@ package com.atguigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.AdminService;
+import com.atguigu.RoleService;
 import com.atguigu.entity.Admin;
 import com.atguigu.util.QiniuUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +25,9 @@ public class AdminController extends BaseController {
 
     @Reference
     private AdminService adminService;
+
+    @Reference
+    private RoleService roleService;
 
     /**
      * @description: 分页及带条件查询
@@ -132,15 +137,47 @@ public class AdminController extends BaseController {
             byte[] bytes = file.getBytes();
             // 上传到七牛云
             String fileName = UUID.randomUUID().toString();
-            QiniuUtil.upload2Qiniu(bytes,fileName);
+            QiniuUtil.upload2Qiniu(bytes, fileName);
             // 给用户设置头像地址
-            admin.setHeadUrl("http://rpmyvhai5.hn-bkt.clouddn.com/"+fileName);
+            admin.setHeadUrl("http://rpmyvhai5.hn-bkt.clouddn.com/" + fileName);
             // 调用更新
             adminService.update(admin);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "common/successPage";
+    }
+
+
+    /**
+     * @description: 去分配角色的页面
+     * @author: ChenXW
+     * @date: 2023/2/7 17:12
+     */
+    @RequestMapping("/assignShow/{adminId}")
+    public String goAssignShowPage(@PathVariable("adminId") Long adminId, ModelMap modelMap) {
+        // 将用户id放到request域中
+        modelMap.addAttribute("adminId", adminId);
+        // 根据用户id查询用户角色的方法
+        Map<String, Object> rolesByAdminId = roleService.findRolesByAdminId(adminId);
+        // 将map放倒request域中
+        modelMap.addAllAttributes(rolesByAdminId);
+
+        return "admin/assignShow";
+    }
+
+
+    /**
+     * @description: 分配角色
+     * @author: ChenXW
+     * @date: 2023/2/7 17:43
+     */
+    @RequestMapping("/assignRole")
+    public String assignRole(Long adminId, Long[] roleIds) {
+        // 分配角色的方法
+        roleService.assignRole(adminId, roleIds);
+        return "common/successPage";
+
     }
 
 

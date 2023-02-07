@@ -1,4 +1,8 @@
 E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\dao\RoleDao.java
+E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\dao\RolePermissionDao.java
 E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\service\impl\AdminServiceImpl.java
+E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\dao\PermissionDao.java
+E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\service\impl\PermissionServiceImpl.java
 E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\service\impl\RoleServiceImpl.java
 E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\dao\AdminDao.java
+E:\project\java\ssm2023\shf-parent\service\service-acl\src\main\java\com\atguigu\dao\AdminRoleDao.java
