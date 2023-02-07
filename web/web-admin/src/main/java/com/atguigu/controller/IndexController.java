@@ -48,4 +48,14 @@ public class IndexController {
         return "frame/main";
     }
 
+    /**
+     * @description: 去登录页面
+     * @author: ChenXW
+     * @date: 2023/2/7 21:46
+     */
+    @RequestMapping("login")
+    public String login(){
+        return"frame/login.html";
+    }
+
 }
