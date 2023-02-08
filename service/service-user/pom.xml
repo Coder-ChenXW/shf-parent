@@ -24,7 +24,7 @@
           </webAppConfig>  
           <httpConnector> 
             <!--端口号，默认 8080-->  
-            <port>7003</port> 
+            <port>7004</port>
           </httpConnector> 
         </configuration> 
       </plugin> 

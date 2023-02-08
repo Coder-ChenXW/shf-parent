@@ -15,6 +15,7 @@
 
     <!--    引入spring-registry.xml的配置文件-->
     <import resource="spring-registry.xml"></import>
+    <import resource="spring-redis.xml"></import>
 
 
     <!--包扫描-->
@@ -52,6 +53,8 @@
         HTML5:表示严格模式
         LEGACYHTML5：表示宽松模式-->
         <property name="templateMode" value="LEGACYHTML5"></property>
+
+
     </bean>
     <!--配置spring的视图解析器-->
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
@@ -64,6 +67,12 @@
     <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
         <!--引用视图解析器-->
         <property name="templateResolver" ref="templateResolver"></property>
+        <!-- 添加spring security 标签支持：sec -->
+        <property name="additionalDialects">
+            <set>
+                <bean class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect"/>
+            </set>
+        </property>
     </bean>
 
 

@@ -31,4 +31,6 @@ public interface PermissionService extends BaseService<Permission> {
      * @return
      */
     List<Permission> findAllMenu();
+
+    List<String> getPermissionCodeByAdminId(Long id);
 }

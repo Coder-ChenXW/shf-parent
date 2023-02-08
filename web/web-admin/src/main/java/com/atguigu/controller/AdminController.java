@@ -7,6 +7,7 @@ import com.atguigu.entity.Admin;
 import com.atguigu.util.QiniuUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,10 @@ public class AdminController extends BaseController {
 
     @Reference
     private RoleService roleService;
+
+    // 注入密码加密器
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * @description: 分页及带条件查询
@@ -67,6 +72,8 @@ public class AdminController extends BaseController {
      */
     @RequestMapping("/save")
     public String save(Admin admin) {
+        // 对Admin对象中的密码进行加密
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         // 调用AdminService中保存的方法
         adminService.insert(admin);
         return "common/successPage";

@@ -3,6 +3,7 @@ package com.atguigu.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,15 +15,16 @@ import java.net.PasswordAuthentication;
 
 @Configuration
 @EnableWebSecurity // 自动配置
+@EnableGlobalMethodSecurity(prePostEnabled = true)  // 开启Controller中的权限控制
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 在内存中设置一个认证的用户名密码
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin")
-                .password(new BCryptPasswordEncoder().encode("123456"))
-                .roles("");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser("admin")
+//                .password(new BCryptPasswordEncoder().encode("123456"))
+//                .roles("");
+//    }
 
     // 创建一个密码加密器放到ioc容器里
     @Bean
@@ -41,5 +43,14 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         // 自定义登录页面
         http.formLogin().loginPage("/login") // 配置去自定义页面访问的路径
                 .defaultSuccessUrl("/"); //配置登录成功后去往的地址
+
+        // 配置登出的地址及登出成功之后去往的地址
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+
+        // 关闭跨域请求伪造
+        http.csrf().disable();
+
+        // 配置无权限访问的处理器
+        http.exceptionHandling().accessDeniedHandler(new CustomAccessDeineHandler());
     }
 }

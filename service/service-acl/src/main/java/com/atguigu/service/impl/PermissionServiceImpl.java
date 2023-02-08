@@ -97,12 +97,26 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
     public List<Permission> findAllMenu() {
         //全部权限列表
         List<Permission> permissionList = permissionDao.findAll();
-        if(CollectionUtils.isEmpty(permissionList)) return null;
+        if (CollectionUtils.isEmpty(permissionList)) return null;
 
         //构建树形数据,总共三级
         //把权限数据构建成树形结构数据
         List<Permission> result = PermissionHelper.bulid(permissionList);
         return result;
+    }
+
+
+    @Override
+    public List<String> getPermissionCodeByAdminId(Long id) {
+        List<String> permissionCodes = null;
+        if (id == 1) {
+            // 是系统管理员
+            permissionCodes = permissionDao.getAllPermissionCodes();
+        } else {
+            // 根据用户id查询权限
+            permissionCodes = permissionDao.getPermissionCodesByAdminId(id);
+        }
+        return permissionCodes;
     }
 
 }

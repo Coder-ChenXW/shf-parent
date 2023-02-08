@@ -105,4 +105,11 @@
         where is_deleted = 0
     </select>
 
+    <!--    根据用户名查询admin对象-->
+    <select id="getAdminByUsername" resultType="admin">
+        <include refid="columns"></include>
+        from acl_admin
+        where username = #{username}
+    </select>
+
 </mapper>
